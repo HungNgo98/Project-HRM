@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::resource('departments', App\Http\Controllers\API\DepartmentsAPIController::class);
+
+Route::resource('employesses', App\Http\Controllers\API\EmployessAPIController::class);
