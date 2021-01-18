@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\CoursesAPIController;
-use App\Http\Controllers\API\courses_score_excel_filesAPIController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +23,9 @@ Route::resource('courses', coursesAPIController::class);
 
 
 Route::resource('courses_score_excel_files', courses_score_excel_filesAPIController::class);
+
+Route::resource('positions', App\Http\Controllers\API\PositionsAPIController::class);
+
+Route::resource('departments', DepartmentsAPIController::class);
+
+Route::resource('employesses', EmployessAPIController::class);
