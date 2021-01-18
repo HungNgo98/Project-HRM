@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\EmployessAPIController;
+use App\Http\Controllers\API\DepartmentsAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::resource('positions', App\Http\Controllers\API\PositionsAPIController::class);
+
+Route::resource('departments', DepartmentsAPIController::class);
+
+Route::resource('employesses', EmployessAPIController::class);
