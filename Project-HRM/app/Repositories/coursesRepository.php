@@ -21,7 +21,12 @@ class coursesRepository extends BaseRepository
         'description',
         'current_order'
     ];
-
+    protected $fieldInList=[
+        'id',
+        'course_category_id',
+        'description',
+        'current_order'
+    ];
     /**
      * Return searchable fields
      *
@@ -40,7 +45,10 @@ class coursesRepository extends BaseRepository
         return courses::class;
     }
 
-    public function  create($input)
+    public function paginate($search = [], $perPage = null, $columns = null, $orders = []){
+        return parent::paginate($search = [], $perPage = null, $columns = null, $orders = []);
+    }
+    public function create($input)
     {
         return parent::create($input);
     }
