@@ -39,8 +39,8 @@ class PositionsRepository extends BaseRepository
         return Positions::class;
     }
 
-//    public function create($input)
-//    {
-//        return Positions ::create($input);
-//    }
+    public function create($input)
+    {
+        return parent::create($input);
+    }
 }
