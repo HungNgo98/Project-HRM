@@ -12,7 +12,7 @@ use App\Repositories\coursesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\coursesResource;
-use Response;
+use Illuminate\Http\Response;
 
 /**
  * Class coursesController
@@ -60,16 +60,15 @@ class coursesAPIController extends AppBaseController
      */
     public function store(CreatecoursesAPIRequest $request)
     {
-        $request->course()->authorizeRoles([UsersUtils::ROLE_ADMIN]);
+//        $request->user()->authorizeRoles([UsersUtils::ROLE_ADMIN]);
         try {
             $input = $request->all();
-
             $courses = $this->coursesRepository->create($input);
             return $this->sendResponse($courses->toArray(), 'Courses saved successfully');
         }
         catch (\Exception $ex)
         {
-            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->sendError($ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
 //        if(isset($courses['description']))

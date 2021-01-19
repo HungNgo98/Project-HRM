@@ -34,5 +34,5 @@ Route::resource('employesses', EmployessAPIController::class);
 
 Route::prefix('course')->group(function () {
     Route::get('all',[coursesAPIController::class,'index']);
-    Route::post('store',[coursesAPIController::class,'store']);
+    Route::post('create',[coursesAPIController::class,'store']);
 });
