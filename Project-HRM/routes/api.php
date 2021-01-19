@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\EmployeesAPIController;
+use App\Http\Controllers\API\EmployessAPIController;
 use App\Http\Controllers\API\DepartmentsAPIController;
 
 /*
@@ -20,6 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::resource('courses', coursesAPIController::class);
+
+
+Route::resource('courses_score_excel_files', courses_score_excel_filesAPIController::class);
 
 Route::resource('positions', App\Http\Controllers\API\PositionsAPIController::class);
 
