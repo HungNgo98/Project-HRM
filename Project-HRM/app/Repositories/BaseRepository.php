@@ -43,8 +43,8 @@ abstract class BaseRepository
     /**
      * @var List field filter
      */
-    protected $fieldFilter = []; 
-    
+    protected $fieldFilter = [];
+
     /**
      * @var List field show in query list
      */
@@ -147,7 +147,7 @@ abstract class BaseRepository
                 $orderBy = (in_array($orderBy, $this->fieldOrder))?$orderBy:$this->fieldOrder[0];
                 $this->query->orderBy($orderBy, $orderDir);
             }
-        }      
+        }
 
         if (!is_null($limit)) {
             $this->query->limit($limit);
@@ -203,15 +203,15 @@ abstract class BaseRepository
         if(isset($input['modified_by'])) unset($input['modified_by']);
 
         $model = $this->model->newInstance($input);
-        
+
         if($this->exitsProperty('created_by')){
             $model->created_by = $user->id;
         }
-         
+
         if($this->exitsProperty('modified_by')){
             $model->modified_by = null;
         }
-        
+
         if($this->exitsProperty('alias') AND !$model->alias){
             if(isset($model->name))
             {
@@ -263,9 +263,9 @@ abstract class BaseRepository
     {
         $user = \Auth::user();
         $this->query = $this->model->newQuery();
-        
+
         $model = $this->query->findOrFail($id);
-        
+
         if(isset($input['id'])) unset($input['id']);
         if(isset($input['created_by'])) unset($input['created_by']);
         if(isset($input['modified_by'])) unset($input['modified_by']);
@@ -275,11 +275,11 @@ abstract class BaseRepository
         if($this->exitsProperty('created_by') AND !$model->created_by){
             $model->created_by = $user->id;
         }
-          
+
         if($this->exitsProperty('modified_by')){
             $model->modified_by = $user->id;
         }
- 
+
         if($this->exitsProperty('alias') AND !$model->alias){
             if(isset($model->name))
             {
@@ -342,7 +342,7 @@ abstract class BaseRepository
             foreach($orders as $orderBy => $orderDir){
                 $query->orderBy($orderBy, $orderDir);
             }
-        } 
+        }
 
         return $query->first();
     }
@@ -351,7 +351,7 @@ abstract class BaseRepository
         $query = $this->model->newQuery();
         if($field_where AND $field_value){
             return $query->where($field_where, $field_value)->sum($field_sum);
-        }        
+        }
         return $query->sum($field_sum);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Departments;
 use App\Repositories\BaseRepository;
+use phpDocumentor\Reflection\Types\Array_;
 
 /**
  * Class DepartmentsRepository
@@ -39,4 +40,10 @@ class DepartmentsRepository extends BaseRepository
     {
         return Departments::class;
     }
+
+    public function create($input)
+    {
+        return parent::create($input);
+    }
+
 }

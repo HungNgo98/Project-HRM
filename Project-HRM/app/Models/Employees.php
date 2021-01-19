@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 
 /**
- * Class Employess
+ * Class Employees
  * @package App\Models
  * @version January 18, 2021, 10:11 am UTC
  *
@@ -52,12 +52,12 @@ use Illuminate\Database\Eloquent\Model as Model;
  * @property boolean $gender
  * @property string $check_out_date
  */
-class Employess extends Model
+class Employees extends Model
 {
 
 
     public $table = 'employees';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 

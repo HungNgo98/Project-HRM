@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\EmployessAPIController;
+use App\Http\Controllers\API\EmployeesAPIController;
 use App\Http\Controllers\API\DepartmentsAPIController;
 
 /*
@@ -25,4 +25,9 @@ Route::resource('positions', App\Http\Controllers\API\PositionsAPIController::cl
 
 Route::resource('departments', DepartmentsAPIController::class);
 
-Route::resource('employesses', EmployessAPIController::class);
+Route::resource('employees', EmployeesAPIController::class);
+
+Route::prefix('dapartments')->group(function (){
+    Route::get('list-dapartments', [DepartmentsAPIController::class, 'index']);
+    Route::post('create', [DepartmentsAPIController::class, 'store']);
+});

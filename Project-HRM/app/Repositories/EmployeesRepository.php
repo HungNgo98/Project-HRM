@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Employess;
+use App\Models\Employees;
 use App\Repositories\BaseRepository;
 
 /**
@@ -11,7 +11,7 @@ use App\Repositories\BaseRepository;
  * @version January 18, 2021, 10:11 am UTC
 */
 
-class EmployessRepository extends BaseRepository
+class EmployeesRepository extends BaseRepository
 {
     /**
      * @var array
@@ -71,6 +71,6 @@ class EmployessRepository extends BaseRepository
      **/
     public function model()
     {
-        return Employess::class;
+        return Employees::class;
     }
 }
