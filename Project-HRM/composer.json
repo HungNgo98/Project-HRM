@@ -15,7 +15,8 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "infyomlabs/laravel-generator": "8.0.x-dev",
-        "doctrine/dbal": "~2.3"
+        "doctrine/dbal": "~2.3",
+        "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -43,8 +43,8 @@ abstract class BaseRepository
     /**
      * @var List field filter
      */
-    protected $fieldFilter = []; 
-    
+    protected $fieldFilter = [];
+
     /**
      * @var List field show in query list
      */
@@ -65,9 +65,9 @@ abstract class BaseRepository
     /**
      * Make Model instance
      *
+     * @return Model
      * @throws \Exception
      *
-     * @return Model
      */
     public function makeModel()
     {
@@ -80,8 +80,9 @@ abstract class BaseRepository
         return $this->model = $model;
     }
 
-    private function exitsProperty($name){
-        return array_search('name',$this->model->fillable) >=0;
+    private function exitsProperty($name)
+    {
+        return array_search('name', $this->model->fillable) >= 0;
     }
 
     /**
@@ -93,10 +94,10 @@ abstract class BaseRepository
      */
     public function paginate($search = [], $perPage = null, $columns = null, $orders = [])
     {
-        if($columns == null){
-            if(isset($this->fieldInList)){
+        if ($columns == null) {
+            if (isset($this->fieldInList)) {
                 $columns = $this->fieldInList;
-            }else $columns = ['*'];
+            } else $columns = ['*'];
         }
 
         $this->allQuery($search, null, null, $orders);
@@ -117,24 +118,23 @@ abstract class BaseRepository
         $this->query = $this->model->newQuery();
 
         if (count($search)) {
-            foreach($search as $key => $value) {
+            foreach ($search as $key => $value) {
                 if (in_array($key, $this->getFieldsSearchable())) {
                     $method = 'filter' . Str::studly($key);
-                    if(method_exists($this, $method)){
+                    if (method_exists($this, $method)) {
                         $this->{$method}($value);
-                    }
-                    else if(method_exists($this->model, $method)){
+                    } else if (method_exists($this->model, $method)) {
                         $this->query = $this->model->{$method}($this->query, $value);
-                    }else{
-                       $this->query->where($key, $value);
+                    } else {
+                        $this->query->where($key, $value);
                     }
-                }else if($key == "filter"){
-                    if(method_exists($this, 'filter')){
+                } else if ($key == "filter") {
+                    if (method_exists($this, 'filter')) {
                         $this->filter($value);
-                    }else if(count($this->fieldFilter)){
-                        $this->query->where(function($query) use ($value) {
-                            foreach($this->fieldFilter as $field){
-                                $query->orWhere($field, 'like' ,"%$value%");
+                    } else if (count($this->fieldFilter)) {
+                        $this->query->where(function ($query) use ($value) {
+                            foreach ($this->fieldFilter as $field) {
+                                $query->orWhere($field, 'like', "%$value%");
                             }
                         });
                     }
@@ -142,12 +142,12 @@ abstract class BaseRepository
             }
         }
 
-        if(is_array($orders) and count($orders)){
-            foreach($orders as $orderBy => $orderDir){
-                $orderBy = (in_array($orderBy, $this->fieldOrder))?$orderBy:$this->fieldOrder[0];
+        if (is_array($orders) and count($orders)) {
+            foreach ($orders as $orderBy => $orderDir) {
+                $orderBy = (in_array($orderBy, $this->fieldOrder)) ? $orderBy : $this->fieldOrder[0];
                 $this->query->orderBy($orderBy, $orderDir);
             }
-        }      
+        }
 
         if (!is_null($limit)) {
             $this->query->limit($limit);
@@ -157,7 +157,7 @@ abstract class BaseRepository
             }
         }
 
-        if(method_exists($this, 'beforeAllQuery')){
+        if (method_exists($this, 'beforeAllQuery')) {
             $this->beforeAllQuery();
         }
 
@@ -176,10 +176,10 @@ abstract class BaseRepository
      */
     public function all($search = [], $skip = null, $limit = null, $columns = null, $orders = [])
     {
-        if($columns == null){
-            if(isset($this->fieldInList)){
+        if ($columns == null) {
+            if (isset($this->fieldInList)) {
                 $columns = $this->fieldInList;
-            }else $columns = ['*'];
+            } else $columns = ['*'];
         }
 
         $this->allQuery($search, $skip, $limit, $orders);
@@ -197,39 +197,35 @@ abstract class BaseRepository
     public function create($input)
     {
         $user = \Auth::user();
-
-        if(isset($input['id'])) unset($input['id']);
-        if(isset($input['created_by'])) unset($input['created_by']);
-        if(isset($input['modified_by'])) unset($input['modified_by']);
+        if (isset($input['id'])) unset($input['id']);
+        if (isset($input['created_by'])) unset($input['created_by']);
+        if (isset($input['modified_by'])) unset($input['modified_by']);
 
         $model = $this->model->newInstance($input);
-        
-        if($this->exitsProperty('created_by')){
-            $model->created_by = $user->id;
+        if ($this->exitsProperty('created_by')) {
+
+            $model->created_by = $user ? $user->id : null;
         }
-         
-        if($this->exitsProperty('modified_by')){
+
+        if ($this->exitsProperty('modified_by')) {
             $model->modified_by = null;
         }
-        
-        if($this->exitsProperty('alias') AND !$model->alias){
-            if(isset($model->name))
-            {
+
+        if ($this->exitsProperty('alias') AND !$model->alias) {
+            if (isset($model->name)) {
                 $model->alias = CommonUtils::makeAlias($model->name);
-            }
-            else if($this->exitsProperty('title'))
-            {
+            } else if ($this->exitsProperty('title')) {
                 $model->alias = CommonUtils::makeAlias($model->title);
             }
         }
 
-        if(method_exists($this, 'beforeCreate')){
+        if (method_exists($this, 'beforeCreate')) {
             $this->beforeCreate($model);
         }
 
         $model->save();
 
-        if(method_exists($this, 'afterCreate')){
+        if (method_exists($this, 'afterCreate')) {
             $this->afterCreate($model);
         }
 
@@ -263,41 +259,38 @@ abstract class BaseRepository
     {
         $user = \Auth::user();
         $this->query = $this->model->newQuery();
-        
+
         $model = $this->query->findOrFail($id);
-        
-        if(isset($input['id'])) unset($input['id']);
-        if(isset($input['created_by'])) unset($input['created_by']);
-        if(isset($input['modified_by'])) unset($input['modified_by']);
+
+        if (isset($input['id'])) unset($input['id']);
+        if (isset($input['created_by'])) unset($input['created_by']);
+        if (isset($input['modified_by'])) unset($input['modified_by']);
 
         $model->fill($input);
 
-        if($this->exitsProperty('created_by') AND !$model->created_by){
+        if ($this->exitsProperty('created_by') AND !$model->created_by) {
             $model->created_by = $user->id;
         }
-          
-        if($this->exitsProperty('modified_by')){
+
+        if ($this->exitsProperty('modified_by')) {
             $model->modified_by = $user->id;
         }
- 
-        if($this->exitsProperty('alias') AND !$model->alias){
-            if(isset($model->name))
-            {
+
+        if ($this->exitsProperty('alias') AND !$model->alias) {
+            if (isset($model->name)) {
                 $model->alias = CommonUtils::makeAlias($model->name);
-            }
-            else if($this->exitsProperty('title'))
-            {
+            } else if ($this->exitsProperty('title')) {
                 $model->alias = CommonUtils::makeAlias($model->title);
             }
         }
 
-        if(method_exists($this, 'beforeUpdate')){
+        if (method_exists($this, 'beforeUpdate')) {
             $this->beforeUpdate($model);
         }
 
         $model->save();
 
-        if(method_exists($this, 'afterUpdate')){
+        if (method_exists($this, 'afterUpdate')) {
             $this->afterUpdate($model);
         }
 
@@ -307,9 +300,9 @@ abstract class BaseRepository
     /**
      * @param int $id
      *
+     * @return bool|mixed|null
      * @throws \Exception
      *
-     * @return bool|mixed|null
      */
     public function delete($id)
     {
@@ -325,33 +318,33 @@ abstract class BaseRepository
         $query = $this->model->newQuery();
 
         if (count($searchs)) {
-            foreach($searchs as $key => $value) {
+            foreach ($searchs as $key => $value) {
                 $method = 'filter' . Str::studly($key);
-                if(method_exists($this, $method)){
+                if (method_exists($this, $method)) {
                     $this->{$method}($value);
-                }
-                else if(method_exists($this->model, $method)){
+                } else if (method_exists($this->model, $method)) {
                     $query = $this->model->{$method}($query, $value);
-                }else{
+                } else {
                     $query->where($key, $value);
                 }
             }
         }
 
-        if(is_array($orders) and count($orders)){
-            foreach($orders as $orderBy => $orderDir){
+        if (is_array($orders) and count($orders)) {
+            foreach ($orders as $orderBy => $orderDir) {
                 $query->orderBy($orderBy, $orderDir);
             }
-        } 
+        }
 
         return $query->first();
     }
 
-    public function getSum($field_sum = 'number', $field_where = 'user_id', $field_value = null){
+    public function getSum($field_sum = 'number', $field_where = 'user_id', $field_value = null)
+    {
         $query = $this->model->newQuery();
-        if($field_where AND $field_value){
+        if ($field_where AND $field_value) {
             return $query->where($field_where, $field_value)->sum($field_sum);
-        }        
+        }
         return $query->sum($field_sum);
     }
 }

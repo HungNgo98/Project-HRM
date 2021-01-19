@@ -20,3 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::resource('positions', App\Http\Controllers\API\PositionsAPIController::class);
+
+Route::prefix('positions')->group(function (){
+    Route::post('create', [\App\Http\Controllers\API\PositionsAPIController::class, 'store']);
+});
+
