@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\coursesAPIController;
+use App\Http\Controllers\API\courses_score_excel_filesAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,8 @@ Route::resource('positions', App\Http\Controllers\API\PositionsAPIController::cl
 Route::resource('departments', DepartmentsAPIController::class);
 
 Route::resource('employesses', EmployessAPIController::class);
+
+Route::prefix('course')->group(function () {
+    Route::get('all',[coursesAPIController::class,'index']);
+    Route::post('store',[coursesAPIController::class,'store']);
+});
