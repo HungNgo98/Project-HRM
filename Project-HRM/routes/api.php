@@ -25,3 +25,8 @@ Route::prefix('positions')->group(function (){
     Route::post('create', [\App\Http\Controllers\API\PositionsAPIController::class, 'store']);
 });
 
+
+Route::prefix('course')->group(function () {
+    Route::get('all',[coursesAPIController::class,'index']);
+    Route::post('create',[coursesAPIController::class,'store']);
+});
