@@ -3,18 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminComponent } from './position/admin/admin.component';
-import { PositionComponent } from './admin/position/position.component';
+import {HttpClientModule} from '@angular/common/http';
+import {AdminModule} from './components/admin/admin.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
-    PositionComponent
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]
