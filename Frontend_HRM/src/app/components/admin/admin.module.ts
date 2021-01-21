@@ -5,6 +5,8 @@ import {AdminRoutingModule} from './admin-routing.module';
 import { DepartmentComponent } from './department/department.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PositionComponent} from './position/position.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -12,7 +14,10 @@ import {PositionComponent} from './position/position.component';
 
 
 @NgModule({
-  declarations: [CourseComponent,PositionComponent],
+  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent],
+  exports: [
+    HeaderComponent, FooterComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
