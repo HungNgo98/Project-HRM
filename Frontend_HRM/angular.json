@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "FrontendHRM"
+  "defaultProject": "FrontendHRM",
+  "cli": {
+    "analytics": "aae678eb-2431-43f1-baa3-7cda108675ea"
+  }
 }
