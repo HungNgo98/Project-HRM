@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\EmployeesAPIController;
+use App\Http\Controllers\API\courses_score_excel_filesAPIController;
+use App\Http\Controllers\API\coursesAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\DepartmentsAPIController;
@@ -35,9 +37,20 @@ Route::prefix('job_statuses')->group(function (){
     Route::delete('delete/{id}', [\App\Http\Controllers\API\PositionsAPIController::class, 'destroy']);
     Route::get('list', [\App\Http\Controllers\API\PositionsAPIController::class, 'index']);
 });
+
+
 Route::prefix('course')->group(function () {
     Route::get('all',[coursesAPIController::class,'index']);
     Route::post('create',[coursesAPIController::class,'store']);
+    Route::post('update/{id}',[coursesAPIController::class,'update']);
+    Route::delete('delete/{id}',[coursesAPIController::class,'destroy']);
+});
+Route::prefix('course_score')->group(function () {
+    Route::get('all',[courses_score_excel_filesAPIController::class,'index']);
+    Route::post('create',[courses_score_excel_filesAPIController::class,'store']);
+    Route::post('update/{id}',[courses_score_excel_filesAPIController::class,'update']);
+    Route::delete('delete/{id}',[courses_score_excel_filesAPIController::class,'destroy']);
+
 });
 
 Route::prefix('department')->group(function (){
