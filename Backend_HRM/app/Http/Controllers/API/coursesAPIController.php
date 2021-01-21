@@ -38,17 +38,25 @@ class coursesAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $order_by = $request->get('order_by','updated_at');
-        $order_dir = $request->get('order_dir','desc');
+        $limit = $request->get('limit', AppUtils::DEFAULT_LIMIT);
+        try {
+            $order_by = $request->get('order_by', 'updated_at');
+            $order_dir = $request->get('order_dir', 'desc');
 
-        $courses = $this->coursesRepository->paginate(
-            $request->except(['skip', 'limit']),
-            $request->get('limit'),
-            null,[$order_by => $order_dir]
-        );
+            $courses = $this->coursesRepository->paginate(
+                ['filter'=>$request->input('description'),'filter'=>$request->input('course_category_id')],
+                $request->get('limit'),
+                null, [$order_by => $order_dir]
+            );
+            return $this->sendResponse($courses->toArray(), 'Courses retrieved successfully');
 
-        return $this->sendResponse($courses->toArray(), 'Courses retrieved successfully');
+
+        } catch (\Exception $ex) {
+            \Log::error($ex->getMessage() . $ex->getTraceAsString());
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     /**
      * Store a newly created courses in storage.
@@ -70,10 +78,6 @@ class coursesAPIController extends AppBaseController
         {
             return $this->sendError($ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-//        if(isset($courses['description']))
-//            unset($courses['description']);
-
 
     }
 
@@ -108,19 +112,24 @@ class coursesAPIController extends AppBaseController
      */
     public function update($id, UpdatecoursesAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var courses $courses */
-        $courses = $this->coursesRepository->find($id);
+            /** @var courses $courses */
+            $courses = $this->coursesRepository->find($id);
 
-        if (empty($courses)) {
-            return $this->sendError('Courses not found');
+            if (empty($courses)) {
+                return $this->sendError('Courses not found');
+            }
+
+            $courses = $this->coursesRepository->update($input, $id);
+
+            return $this->sendResponse($courses->toArray(), 'courses updated successfully');
+        }
+        catch (\Exception $ex){
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $courses = $this->coursesRepository->update($input, $id);
-        if(isset($courses['html_content']))
-            unset($courses['html_content']);
-        return $this->sendResponse($courses->toArray(), 'courses updated successfully');
     }
 
     /**
@@ -136,15 +145,21 @@ class coursesAPIController extends AppBaseController
     public function destroy($id)
     {
         /** @var courses $courses */
-        $courses = $this->coursesRepository->find($id);
+        try {
+            $courses = $this->coursesRepository->find($id);
 
-        if (empty($courses)) {
-            return $this->sendError('Courses not found');
+            if (empty($courses)) {
+                return $this->sendError('Courses not found');
+            }
+
+            $courses->delete();
+
+            return $this->sendResponse($id,'Courses deleted successfully');
+        }
+        catch (\Exception $ex){
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $courses->delete();
-
-        return $this->sendSuccess($id,'Courses deleted successfully');
     }
     public function getSelectList(Request $request){
         $scope = $request->get('scope',AppUtils::DEFAULT_SCOPE);

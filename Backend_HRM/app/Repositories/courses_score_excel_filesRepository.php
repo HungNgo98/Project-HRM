@@ -40,4 +40,21 @@ class courses_score_excel_filesRepository extends BaseRepository
     {
         return courses_score_excel_files::class;
     }
+    public function paginate($search = [], $perPage = null, $columns = null, $orders = [])
+    {
+        return parent::paginate($search = [], $perPage = null, $columns = null, $orders = []);
+    }
+    public function find($id, $columns = ['*'])
+    {
+        return parent::find($id, $columns);
+    }
+
+    public function create($input)
+    {
+        return parent::create($input);
+    }
+    public function delete($id)
+    {
+        return parent::delete($id);
+    }
 }

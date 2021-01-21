@@ -9,7 +9,7 @@ use App\Repositories\courses_score_excel_filesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\courses_score_excel_filesResource;
-use Response;
+use Illuminate\Http\Response;
 
 /**
  * Class courses_score_excel_filesController
@@ -35,13 +35,16 @@ class courses_score_excel_filesAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->all(
+        $order_by = $request->get('order_by','updated_at');
+        $order_dir = $request->get('order_dir','desc');
+
+        $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->paginate(
             $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            null,[$order_by => $order_dir]
         );
 
-        return $this->sendResponse(courses_score_excel_filesResource::collection($coursesScoreExcelFiles), 'Courses Score Excel Files retrieved successfully');
+        return $this->sendResponse($coursesScoreExcelFiles->toArray(), 'Courses Score Excel Files retrieved successfully');
     }
 
     /**
@@ -54,11 +57,18 @@ class courses_score_excel_filesAPIController extends AppBaseController
      */
     public function store(Createcourses_score_excel_filesAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->create($input);
+            $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->create($input);
 
-        return $this->sendResponse(new courses_score_excel_filesResource($coursesScoreExcelFiles), 'Courses Score Excel Files saved successfully');
+            return $this->sendResponse($coursesScoreExcelFiles->toArray(), 'Courses Score Excel Files saved successfully');
+
+        }
+        catch (\Exception $ex)
+        {
+            return $this->sendError($ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -78,7 +88,7 @@ class courses_score_excel_filesAPIController extends AppBaseController
             return $this->sendError('Courses Score Excel Files not found');
         }
 
-        return $this->sendResponse(new courses_score_excel_filesResource($coursesScoreExcelFiles), 'Courses Score Excel Files retrieved successfully');
+        return $this->sendResponse($coursesScoreExcelFiles->toArray(), 'Courses Score Excel Files retrieved successfully');
     }
 
     /**
@@ -92,18 +102,26 @@ class courses_score_excel_filesAPIController extends AppBaseController
      */
     public function update($id, Updatecourses_score_excel_filesAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var courses_score_excel_files $coursesScoreExcelFiles */
-        $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->find($id);
+            /** @var courses_score_excel_files $coursesScoreExcelFiles */
+            $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->find($id);
 
-        if (empty($coursesScoreExcelFiles)) {
-            return $this->sendError('Courses Score Excel Files not found');
+            if (empty($coursesScoreExcelFiles)) {
+                return $this->sendError('Courses Score Excel Files not found');
+            }
+            $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->update($input, $id);
+
+            return $this->sendResponse($coursesScoreExcelFiles->toArray(), 'courses_score_excel_files updated successfully');
+
+        }
+        catch (\Exception $ex){
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+
         }
 
-        $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->update($input, $id);
 
-        return $this->sendResponse(new courses_score_excel_filesResource($coursesScoreExcelFiles), 'courses_score_excel_files updated successfully');
     }
 
     /**
@@ -118,15 +136,20 @@ class courses_score_excel_filesAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var courses_score_excel_files $coursesScoreExcelFiles */
-        $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->find($id);
+        try {
+            $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->find($id);
 
-        if (empty($coursesScoreExcelFiles)) {
-            return $this->sendError('Courses Score Excel Files not found');
+            if (empty($coursesScoreExcelFiles)) {
+                return $this->sendError('Courses Score Excel Files not found');
+            }
+
+            $coursesScoreExcelFiles->delete();
+
+            return $this->sendResponse($id,'Courses Score Excel Files deleted successfully');
+        }
+        catch (\Exception $ex){
+            return $this->sendError($ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $coursesScoreExcelFiles->delete();
-
-        return $this->sendSuccess('Courses Score Excel Files deleted successfully');
     }
 }
