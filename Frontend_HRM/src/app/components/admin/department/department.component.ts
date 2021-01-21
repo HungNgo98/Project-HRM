@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
 import {DepartmentService} from "../../services/department.service";
-import {ToastrService} from 'ngx-toastr';
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -15,16 +15,16 @@ export class DepartmentComponent implements OnInit {
   constructor(
     private departmentService: DepartmentService,
     private router: Router,
-    private toastr:ToastrService
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.list();
   }
 
   list(){
     this.departmentService.list().subscribe((res:any)=>{
       this.department = res;
-      console.log(this.department);
     }, (error:any) => {
         this.toastr.success('List lỗi');
     });

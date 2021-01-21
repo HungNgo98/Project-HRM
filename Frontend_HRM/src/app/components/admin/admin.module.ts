@@ -14,7 +14,7 @@ import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
-  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent],
+  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent],
   exports: [
     HeaderComponent, FooterComponent
   ],
