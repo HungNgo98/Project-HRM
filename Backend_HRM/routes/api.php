@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\API\EmployeesAPIController;
 use App\Http\Controllers\API\courses_score_excel_filesAPIController;
 use App\Http\Controllers\API\coursesAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\DepartmentsAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +53,19 @@ Route::prefix('course_score')->group(function () {
 
 });
 
+Route::prefix('department')->group(function (){
+    Route::get('list', [DepartmentsAPIController::class, 'index']);
+    Route::post('create', [DepartmentsAPIController::class, 'store']);
+    Route::post('update/{id}', [DepartmentsAPIController::class, 'update']);
+    Route::delete('delete/{id}',[DepartmentsAPIController::class, 'destroy']);
+});
 
+Route::prefix('employee')->group(function (){
+    Route::get('list', [EmployeesAPIController::class, 'index']);
+    Route::post('create', [EmployeesAPIController::class, 'store']);
+    Route::post('update/{id}', [EmployeesAPIController::class, 'update']);
+    Route::delete('delete/{id}',[EmployeesAPIController::class, 'destroy']);
+});
 
+Route::resource('departments', App\Http\Controllers\API\DepartmentsAPIController::class);
+Route::resource('employees', App\Http\Controllers\API\EmployeesAPIController::class);

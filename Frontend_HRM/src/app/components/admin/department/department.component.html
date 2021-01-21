@@ -1,0 +1,22 @@
+
+  <h2>Department</h2>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tên</th>
+      <th>Code</th>
+      <th>Mô Tả</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let d of department">
+      <td>{{d.id}}</td>
+      <td>{{d.name}}</td>
+      <td>{{d.code}}</td>
+      <td>{{d.description}}</td>
+    </tr>
+    </tbody>
+  </table>
+

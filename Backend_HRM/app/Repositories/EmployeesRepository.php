@@ -2,21 +2,30 @@
 
 namespace App\Repositories;
 
-use App\Models\Employess;
+use App\Models\Employees;
 use App\Repositories\BaseRepository;
 
 /**
- * Class EmployessRepository
+ * Class EmployeesRepository
  * @package App\Repositories
- * @version January 18, 2021, 10:11 am UTC
+ * @version January 21, 2021, 6:54 am UTC
 */
 
-class EmployessRepository extends BaseRepository
+class EmployeesRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
+        'user_id',
+        'employee_code',
+        'full_name',
+        'email',
+        'gender'
+    ];
+
+    protected $fieldInList = [
+        'id',
         'user_id',
         'department_id',
         'position_id',
@@ -53,7 +62,21 @@ class EmployessRepository extends BaseRepository
         'contact_user',
         'distance',
         'gender',
-        'check_out_date'
+        'check_out_date',
+        'created_by',
+        'modified_by',
+        'created_at',
+        'updated_at'
+    ];
+
+    protected $fieldFilter = [
+        'full_name'
+    ];
+
+    public $fieldOrder = [
+        'updated_at',
+        'created_at',
+        'full_name'
     ];
 
     /**
@@ -71,6 +94,26 @@ class EmployessRepository extends BaseRepository
      **/
     public function model()
     {
-        return Employess::class;
+        return Employees::class;
+    }
+
+    public function paginate($search = [], $perPage = null, $columns = null, $orders = [])
+    {
+        return parent::paginate($search, $perPage, $columns, $orders);
+    }
+
+    public function create($input)
+    {
+        return parent::create($input);
+    }
+
+    public function update($input, $id)
+    {
+        return parent::update($input, $id);
+    }
+
+    public function delete($id)
+    {
+        return parent::delete($id);
     }
 }

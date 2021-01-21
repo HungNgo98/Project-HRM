@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\Employess;
+use App\Models\Employees;
 use InfyOm\Generator\Request\APIRequest;
 
-class UpdateEmployessAPIRequest extends APIRequest
+class CreateEmployeesAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class UpdateEmployessAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Employess::$rules;
-        
-        return $rules;
+        return Employees::$rules;
     }
 }
