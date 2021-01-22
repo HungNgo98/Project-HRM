@@ -9,6 +9,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { JobStatusComponent } from './job-status/job-status.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { CoursesScoreExcelFilesComponent } from './courses-score-excel-files/courses-score-excel-files.component';
 
 
 
@@ -16,7 +18,7 @@ import { JobStatusComponent } from './job-status/job-status.component';
 
 
 @NgModule({
-  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent, JobStatusComponent],
+  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent, EmployeeComponent, CoursesScoreExcelFilesComponent, JobStatusComponent],
   exports: [
     HeaderComponent, FooterComponent
   ],

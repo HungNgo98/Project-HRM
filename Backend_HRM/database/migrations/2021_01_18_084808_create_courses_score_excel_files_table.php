@@ -20,6 +20,8 @@ class CreateCoursesScoreExcelFilesTable extends Migration
             $table->foreign('course_id')->references('id')->on('courses');
             $table->unsignedBigInteger('user_id');
             $table->tinyInteger('status')->nullable()->default(1);
+            $table->string('created_by')->nullable();
+            $table->string('modified_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

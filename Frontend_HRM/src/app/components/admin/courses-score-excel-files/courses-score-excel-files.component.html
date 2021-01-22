@@ -1,0 +1,21 @@
+<div class="cach">
+  <h2>Course score</h2>
+  <table class="table">
+    <tr>
+      <td>STT</td>
+      <td>Tên</td>
+      <td>Email</td>
+      <td>Điểm danh</td>
+      <td>Điểm</td>
+      <td>Xếp loại</td>
+    <tr>
+    <tr *ngFor="let course of coursesScore">
+      <td>{{course.id}}</td>
+      <td>{{course.name}}</td>
+      <td>{{course.user_id}}</td>
+      <td>{{course.status}}</td>
+      <td>{{course.course_id}}</td>
+      <td></td>
+    </tr>
+  </table>
+</div>

@@ -20,13 +20,15 @@ class coursesRepository extends BaseRepository
         'id',
         'course_category_id',
         'description',
-        'current_order'
+        'current_order',
+        'name'
     ];
     protected $fieldInList=[
         'id',
         'course_category_id',
         'description',
-        'current_order'
+        'current_order',
+        'name'
 //        'created_at'
     ];
     protected $fieldFilter=[

@@ -12,64 +12,65 @@ export class HeaderComponent implements OnInit {
     {
       isActive: true,
       name: "Quản Trị",
-      icon: "fa fa-tachometer-alt",
+      icon: "fa fa-user",
       abc: "new",
 
       children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
+        {name: "Dashboard 1", url: ''},
+        {name: "Dashboard 2", url: ''},
+        {name: "Dashboard 3", url: ''}
       ]
     },
     {
       isActive: false,
       name: "Nhân Sự",
-      icon: "fa fa-tachometer-alt",
+      icon: "fa fa-users",
       children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
+        {name: "Danh sách", url: 'admin/employee'},
+        {name: "Dashboard 2", url: ''},
+        {name: "Dashboard 3", url: ''}
       ]
     },
     {
       isActive: false,
       name: "Đào Tạo",
-      icon: "fa fa-tachometer-alt",
+      icon: "fa fa-book",
       children: [
-        {name: "Danh sách khóa học"},
-        {name: "Quản lý khóa học"},
-        {name: "Dashboard 3"}
+        {name: "Danh sách khóa học", url: ''},
+        {name: "Quản lý khóa học", url: ''},
+        {name: "Dashboard 3", url: ''}
       ]
     },
     {
       isActive: false,
       name: "OT/Nghỉ Phép",
-      icon: "fa fa-tachometer-alt",
+      icon: "fa fa-clock-o",
       children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
+        {name: "Dashboard 1", url: ''},
+        {name: "Dashboard 2", url: ''},
+        {name: "Dashboard 3", url: ''}
       ]
     },
     {
       isActive: false,
       name: "Chấm Công",
-      icon: "fa fa-tachometer-alt",
+      icon: "fa fa-usd",
       children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
+        {name: "Dashboard 1", url: ''},
+        {name: "Dashboard 2", url: ''},
+        {name: "Dashboard 3", url: ''}
       ]
     },
     {
       isActive: false,
       name: "Danh Mục",
-      icon: "fa fa-tachometer-alt",
+      icon: "fa fa-bars",
       children: [
-        {name: "Chức danh"},
-        {name: "Phòng ban"},
-        {name: "Trạng thái công việc"},
-        {name: "Nhân viên"}
+        {name: "Chức danh", url: ''},
+        {name: "Phòng ban", url: 'admin/department'},
+        {name: "Trạng thái công việc", url: ''},
+        {name: "Nhân viên", url: ''},
+        {name: "Danh sách khóa học"}
       ]
     }
   ];

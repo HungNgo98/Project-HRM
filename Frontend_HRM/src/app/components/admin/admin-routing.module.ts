@@ -4,6 +4,8 @@ import {CourseComponent} from './course/course.component';
 import {PositionComponent} from './position/position.component';
 import {DepartmentComponent} from './department/department.component';
 import {JobStatusComponent} from './job-status/job-status.component';
+import {CoursesScoreExcelFilesComponent} from './courses-score-excel-files/courses-score-excel-files.component';
+import {EmployeeComponent} from './employee/employee.component';
 
 
 const routes: Routes = [
@@ -22,7 +24,15 @@ const routes: Routes = [
   {
   path: 'job_status',
   component: JobStatusComponent
-}
+  },
+  {
+    path: 'course_score',
+    component: CoursesScoreExcelFilesComponent
+  },
+  {
+    path: 'employee',
+    component: EmployeeComponent
+  }
 ];
 
 
