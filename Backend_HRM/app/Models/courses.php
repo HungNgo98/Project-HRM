@@ -21,7 +21,7 @@ class courses extends Model
 
 
     public $table = 'courses';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -31,7 +31,8 @@ class courses extends Model
     public $fillable = [
         'course_category_id',
         'description',
-        'current_order'
+        'current_order',
+        'name'
     ];
 
     /**
@@ -43,7 +44,8 @@ class courses extends Model
         'id' => 'integer',
         'course_category_id' => 'integer',
         'description' => 'string',
-        'current_order' => 'string'
+        'current_order' => 'string',
+        'name' => 'string'
     ];
 
     /**

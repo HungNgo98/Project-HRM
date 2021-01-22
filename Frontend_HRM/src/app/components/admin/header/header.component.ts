@@ -69,7 +69,8 @@ export class HeaderComponent implements OnInit {
         {name: "Chức danh"},
         {name: "Phòng ban"},
         {name: "Trạng thái công việc"},
-        {name: "Nhân viên"}
+        {name: "Nhân viên"},
+        {name: "Danh sách khóa học"}
       ]
     }
   ];
