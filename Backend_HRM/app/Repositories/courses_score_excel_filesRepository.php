@@ -22,7 +22,19 @@ class courses_score_excel_filesRepository extends BaseRepository
         'user_id',
         'status'
     ];
-
+    protected $fieldInList=[
+        'id',
+        'course_id',
+        'user_id',
+        'status',
+        'name'
+    ];
+    public $fieldOrder=[
+        'id'
+    ];
+    protected $fieldFilter=[
+        'name'
+    ];
     /**
      * Return searchable fields
      *
@@ -42,8 +54,9 @@ class courses_score_excel_filesRepository extends BaseRepository
     }
     public function paginate($search = [], $perPage = null, $columns = null, $orders = [])
     {
-        return parent::paginate($search = [], $perPage = null, $columns = null, $orders = []);
+        return parent::paginate($search, $perPage, $columns, $orders);
     }
+
     public function find($id, $columns = ['*'])
     {
         return parent::find($id, $columns);

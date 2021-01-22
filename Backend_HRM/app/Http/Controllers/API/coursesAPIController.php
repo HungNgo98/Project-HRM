@@ -44,7 +44,7 @@ class coursesAPIController extends AppBaseController
             $order_dir = $request->get('order_dir', 'desc');
 
             $courses = $this->coursesRepository->paginate(
-                ['filter'=>$request->input('description'),'filter'=>$request->input('course_category_id')],
+                ['filter'=>$request->input('name')],
                 $request->get('limit'),
                 null, [$order_by => $order_dir]
             );

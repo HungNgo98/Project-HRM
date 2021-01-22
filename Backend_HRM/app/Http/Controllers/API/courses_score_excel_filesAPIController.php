@@ -39,9 +39,9 @@ class courses_score_excel_filesAPIController extends AppBaseController
         $order_dir = $request->get('order_dir','desc');
 
         $coursesScoreExcelFiles = $this->coursesScoreExcelFilesRepository->paginate(
-            $request->except(['skip', 'limit']),
+            ['filter'=>$request->input('description'),'filter'=>$request->input('course_category_id')],
             $request->get('limit'),
-            null,[$order_by => $order_dir]
+            null, [$order_by => $order_dir]
         );
 
         return $this->sendResponse($coursesScoreExcelFiles->toArray(), 'Courses Score Excel Files retrieved successfully');

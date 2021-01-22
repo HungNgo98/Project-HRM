@@ -69,7 +69,8 @@ export class HeaderComponent implements OnInit {
         {name: "Chức danh", url: ''},
         {name: "Phòng ban", url: 'admin/department'},
         {name: "Trạng thái công việc", url: ''},
-        {name: "Nhân viên", url: ''}
+        {name: "Nhân viên", url: ''},
+        {name: "Danh sách khóa học"}
       ]
     }
   ];
