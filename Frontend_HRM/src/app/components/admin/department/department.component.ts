@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DepartmentService} from "../../services/department.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {newArray} from "@angular/compiler/src/util";
-
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-department',
@@ -12,7 +11,10 @@ import {newArray} from "@angular/compiler/src/util";
 })
 export class DepartmentComponent implements OnInit {
 
-  department: any[]=new Array();
+  departments: any;
+  departmentForm = new FormGroup({});
+  isShowModal= false;
+  isCreate= false;
   constructor(
     private departmentService: DepartmentService,
     private router: Router,
@@ -25,10 +27,62 @@ export class DepartmentComponent implements OnInit {
 
   list(){
     this.departmentService.list().subscribe((res:any)=>{
-      this.department = res;
-      console.log(1111, this.department);
+      this.departments = res.data.data;
     }, (error:any) => {
-        this.toastr.success('List lỗi');
+        this.toastr.success('Lỗi list Department');
     });
+  }
+
+  createOredit(department? : any): void {
+    this.isShowModal=true;
+    if (department){
+      this.isCreate= true;
+      this.buildForm(department);
+    }else{
+      this.isCreate= false;
+      this.buildForm();
+    }
+  }
+
+  buildForm(department? : any){
+    this.departmentForm = new FormGroup({
+      id: new FormControl(department ? department.id : null),
+      name: new FormControl(department ? department.name : null, [Validators.required]),
+      code: new FormControl(department ? department.code : null, [Validators.required]),
+      description: new FormControl(department ? department.description : null)
+    });
+  }
+
+  submit() {
+    if(this.departmentForm.get('id')?.value) {
+      this.departmentService.update(this.departmentForm.value).subscribe(res => {
+        this.toastr.success('Sửa thành công', 'Thành công');
+        this.isShowModal = false;
+        this.list();
+      },error => {
+        this.toastr.success('Thêm Lỗi !!!');
+      });
+    } else {
+      this.departmentService.create(this.departmentForm.value).subscribe(res => {
+        this.toastr.success('Thêm thành công', 'Thành công');
+        this.isShowModal = false;
+        this.list();
+      }, error => {
+        this.toastr.error(error, 'Sửa Lỗi !!!');
+      });
+    }
+  }
+
+  delete(id:number){
+    this.departmentService.delete(id).subscribe(res =>{
+      this.toastr.success('Xóa Thành Công', 'Thành Công');
+      this.list();
+    }, (error: any) =>{
+      this.toastr.success('Xóa Lỗi')
+    });
+  }
+
+  closeModal(){
+    this.isShowModal = false;
   }
 }
