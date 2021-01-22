@@ -4,6 +4,7 @@ import {CourseComponent} from './course/course.component';
 import {PositionComponent} from './position/position.component';
 import {DepartmentComponent} from './department/department.component';
 import {CoursesScoreExcelFilesComponent} from './courses-score-excel-files/courses-score-excel-files.component';
+import {EmployeeComponent} from './employee/employee.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'course_score',
     component: CoursesScoreExcelFilesComponent
+  },
+  {
+    path: 'employee',
+    component: EmployeeComponent
   }
 ];
 

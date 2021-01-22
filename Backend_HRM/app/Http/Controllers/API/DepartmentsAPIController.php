@@ -48,7 +48,7 @@ class DepartmentsAPIController extends AppBaseController
                 [$order_by => $order_dir]
             );
 
-            return $this->sendResponse($itemsDepartment, 'Department retrieved successfully');
+            return $this->sendResponse($itemsDepartment->toArray(), 'Department retrieved successfully');
         } catch (\Exception $ex) {
             \Log::error($ex->getMessage() . $ex->getTraceAsString());
             return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);

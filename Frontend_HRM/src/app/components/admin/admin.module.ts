@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { CourseComponent } from './course/course.component';
 import {AdminRoutingModule} from './admin-routing.module';
 import { DepartmentComponent } from './department/department.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PositionComponent} from './position/position.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { EmployeeComponent } from './employee/employee.component';
 import { CoursesScoreExcelFilesComponent } from './courses-score-excel-files/courses-score-excel-files.component';
 
 
@@ -15,7 +16,7 @@ import { CoursesScoreExcelFilesComponent } from './courses-score-excel-files/cou
 
 
 @NgModule({
-  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent, CoursesScoreExcelFilesComponent],
+  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent, EmployeeComponent, CoursesScoreExcelFilesComponent],
   exports: [
     HeaderComponent, FooterComponent
   ],

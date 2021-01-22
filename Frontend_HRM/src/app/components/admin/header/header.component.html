@@ -64,7 +64,7 @@
             <div class="sidebar-submenu" [ngClass]="{'d-block': menu.isActive}">
               <ul>
                 <li *ngFor="let childMenu of menu.children">
-                  <a href="#">{{childMenu.name}}</a>
+                  <a routerLink="{{childMenu.url}}">{{childMenu.name}}</a>
                 </li>
               </ul>
             </div>
