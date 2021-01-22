@@ -10,6 +10,7 @@ use App\Repositories\PositionsRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\PositionsResource;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 
@@ -37,15 +38,17 @@ class PositionsAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
+
         $limit = $request->get('limit', AppUtils::DEFAULT_LIMIT);
         try{
             $order_by = $request->get('order_by', 'updated_at');
-            $order_dir = $request->get('order_dir', 'desc');
+            $order_dir = 'asc';
             $itemsPosition = $this->positionsRepository->paginate(
                 ['filter'=>$request->input('name'),'filter'=>$request->input('code')],
                 $limit,
                 null, [$order_by => $order_dir]
             );
+
             return $this->sendResponse($itemsPosition->toArray(), 'Positions retrieved successfully');
         }catch (\Exception $ex) {
             \Log::error($ex->getMessage() . $ex->getTraceAsString());

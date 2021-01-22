@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class PositionService {
+export class JobStatusService {
   urlApi = environment.urlApi;
 
   constructor(
@@ -14,15 +14,15 @@ export class PositionService {
   }
   private httpOptions: any;
   list(param?: any){
-    return this.http.get(this.urlApi + 'positions/list');
+    return this.http.get(this.urlApi + 'job-status/list');
   }
   store(body: any){
-    return this.http.post(this.urlApi + 'positions/create', body);
+    return this.http.post(this.urlApi + 'job-status/create', body);
   }
   update(body: any){
-    return this.http.post(this.urlApi + 'positions/update/' +  body.id, body);
+    return this.http.post(this.urlApi + 'job-status/update/' +  body.id, body);
   }
   destroy(id: number){
-    return this.http.delete(this.urlApi + 'positions/delete/' + id);
+    return this.http.delete(this.urlApi + 'job-status/delete/' + id);
   }
 }

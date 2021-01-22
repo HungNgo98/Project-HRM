@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {CourseComponent} from './course/course.component';
 import {PositionComponent} from './position/position.component';
 import {DepartmentComponent} from './department/department.component';
+import {JobStatusComponent} from './job-status/job-status.component';
 import {CoursesScoreExcelFilesComponent} from './courses-score-excel-files/courses-score-excel-files.component';
 import {EmployeeComponent} from './employee/employee.component';
 
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'department',
     component: DepartmentComponent
+  },
+  {
+  path: 'job_status',
+  component: JobStatusComponent
   },
   {
     path: 'course_score',

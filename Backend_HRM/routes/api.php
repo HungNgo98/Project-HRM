@@ -31,11 +31,11 @@ Route::prefix('positions')->group(function (){
     Route::get('list', [\App\Http\Controllers\API\PositionsAPIController::class, 'index']);
 });
 //Route::resource('job_statuses', App\Http\Controllers\API\Job_statusAPIController::class);
-Route::prefix('job_statuses')->group(function (){
-    Route::post('create', [\App\Http\Controllers\API\PositionsAPIController::class, 'store']);
-    Route::post('update/{id}', [\App\Http\Controllers\API\PositionsAPIController::class, 'update']);
-    Route::delete('delete/{id}', [\App\Http\Controllers\API\PositionsAPIController::class, 'destroy']);
-    Route::get('list', [\App\Http\Controllers\API\PositionsAPIController::class, 'index']);
+Route::prefix('job_status')->group(function (){
+    Route::post('create', [\App\Http\Controllers\API\Job_statusAPIController::class, 'store']);
+    Route::post('update/{id}', [\App\Http\Controllers\API\Job_statusAPIController::class, 'update']);
+    Route::delete('delete/{id}', [\App\Http\Controllers\API\Job_statusAPIController::class, 'destroy']);
+    Route::get('list', [\App\Http\Controllers\API\Job_statusAPIController::class, 'index']);
 });
 
 

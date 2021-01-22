@@ -15,14 +15,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let p of position">
-      <td>{{p.id}}</td>
-      <td>{{p.name}}</td>
-      <td>{{p.code}}</td>
-      <td>{{p.description}}</td>
+    <tr *ngFor="let job of jobstatus">
+      <td>{{job.id}}</td>
+      <td>{{job.name}}</td>
+      <td>{{job.code}}</td>
+      <td>{{job.description}}</td>
       <td>
-        <button type="button" class="btn btn-info mr-1" (click)="addOrEdit(p)"><i class="fa fa-edit"></i></button>
-        <button type="button" class="btn btn-danger" (click)="delete(p.id)"><i class="fa fa-window-close"></i></button>
+        <button type="button" class="btn btn-info mr-1" (click)="addOrEdit(job)"><i class="fa fa-edit"></i></button>
+        <button type="button" class="btn btn-danger" (click)="delete(job.id)"><i class="fa fa-window-close"></i></button>
       </td>
     </tr>
 
@@ -40,7 +40,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="positionForm" (ngSubmit)="submit()">
+        <form [formGroup]="jobstatusForm" (ngSubmit)="submit()">
 
           <div class="form-group">
             <label>*Tên chức danh</label>

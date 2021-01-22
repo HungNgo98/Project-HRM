@@ -39,7 +39,7 @@ class DepartmentsAPIController extends AppBaseController
         $limit = $request->get('limit', AppUtils::DEFAULT_LIMIT);
         try {
             $order_by = $request->get('order_by', 'updated_at');
-            $order_dir = $request->get('order_dir', 'desc');
+            $order_dir = $request->get('order_dir', 'asc');
 
             $itemsDepartment = $this->departmentsRepository->paginate(
                 ['filter'=>$request->input('name')],
