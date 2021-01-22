@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateDepartmentsAPIRequest;
 use App\Http\Requests\API\UpdateDepartmentsAPIRequest;
+use App\Http\Utils\AppUtils;
 use App\Models\Departments;
 use App\Repositories\DepartmentsRepository;
 use Illuminate\Http\Request;
@@ -35,13 +36,23 @@ class DepartmentsAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $departments = $this->departmentsRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $limit = $request->get('limit', AppUtils::DEFAULT_LIMIT);
+        try {
+            $order_by = $request->get('order_by', 'updated_at');
+            $order_dir = $request->get('order_dir', 'asc');
 
-        return $this->sendResponse(DepartmentsResource::collection($departments), 'Departments retrieved successfully');
+            $itemsDepartment = $this->departmentsRepository->paginate(
+                ['filter'=>$request->input('name')],
+                $limit,
+                null,
+                [$order_by => $order_dir]
+            );
+
+            return $this->sendResponse($itemsDepartment, 'Department retrieved successfully');
+        } catch (\Exception $ex) {
+            \Log::error($ex->getMessage() . $ex->getTraceAsString());
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -54,11 +65,13 @@ class DepartmentsAPIController extends AppBaseController
      */
     public function store(CreateDepartmentsAPIRequest $request)
     {
-        $input = $request->all();
-
-        $departments = $this->departmentsRepository->create($input);
-
-        return $this->sendResponse(new DepartmentsResource($departments), 'Departments saved successfully');
+        try {
+            $input = $request->all();
+            $departments = $this->departmentsRepository->create($input);
+            return $this->sendResponse($departments->toArray(), 'Departments saved successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -92,18 +105,22 @@ class DepartmentsAPIController extends AppBaseController
      */
     public function update($id, UpdateDepartmentsAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var Departments $departments */
-        $departments = $this->departmentsRepository->find($id);
+            /** @var Department $departments */
+            $departments = $this->departmentsRepository->find($id);
 
-        if (empty($departments)) {
-            return $this->sendError('Departments not found');
+            if (empty($departments)) {
+                return $this->sendError('Departments not found', \Illuminate\Http\Response::HTTP_NO_CONTENT);
+            }
+
+            $departments = $this->departmentsRepository->update($input, $id);
+
+            return $this->sendResponse($departments->toArray(), 'Departments updated successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        $departments = $this->departmentsRepository->update($input, $id);
-
-        return $this->sendResponse(new DepartmentsResource($departments), 'Departments updated successfully');
     }
 
     /**
@@ -118,15 +135,19 @@ class DepartmentsAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var Departments $departments */
-        $departments = $this->departmentsRepository->find($id);
+        try {
+            /** @var Departments $departments */
+            $departments = $this->departmentsRepository->find($id);
 
-        if (empty($departments)) {
-            return $this->sendError('Departments not found');
+            if (empty($departments)) {
+                return $this->sendError('Department not found', \Illuminate\Http\Response::HTTP_NO_CONTENT);
+            }
+
+            $departments->delete();
+
+            return $this->sendResponse($id, 'Department deleted successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage(), \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        $departments->delete();
-
-        return $this->sendSuccess('Departments deleted successfully');
     }
 }

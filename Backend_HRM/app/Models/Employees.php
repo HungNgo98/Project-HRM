@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 
 /**
- * Class Employess
+ * Class Employees
  * @package App\Models
- * @version January 18, 2021, 10:11 am UTC
+ * @version January 21, 2021, 6:54 am UTC
  *
  * @property \App\Models\Department $department
  * @property \App\Models\JobStatus $jobStatus
@@ -52,7 +52,7 @@ use Illuminate\Database\Eloquent\Model as Model;
  * @property boolean $gender
  * @property string $check_out_date
  */
-class Employess extends Model
+class Employees extends Model
 {
 
 

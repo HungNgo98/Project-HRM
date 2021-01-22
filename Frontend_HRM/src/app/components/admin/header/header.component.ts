@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   menus = [
     {
       isActive: true,
-      name: "Dashboard",
+      name: "Quản Trị",
       icon: "fa fa-tachometer-alt",
       abc: "new",
 
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     },
     {
       isActive: false,
-      name: "Dashboard2",
+      name: "Nhân Sự",
       icon: "fa fa-tachometer-alt",
       children: [
         {name: "Dashboard 1"},
@@ -33,7 +33,17 @@ export class HeaderComponent implements OnInit {
     },
     {
       isActive: false,
-      name: "Dashboard2",
+      name: "Đào Tạo",
+      icon: "fa fa-tachometer-alt",
+      children: [
+        {name: "Danh sách khóa học"},
+        {name: "Quản lý khóa học"},
+        {name: "Dashboard 3"}
+      ]
+    },
+    {
+      isActive: false,
+      name: "OT/Nghỉ Phép",
       icon: "fa fa-tachometer-alt",
       children: [
         {name: "Dashboard 1"},
@@ -43,7 +53,7 @@ export class HeaderComponent implements OnInit {
     },
     {
       isActive: false,
-      name: "Dashboard2",
+      name: "Chấm Công",
       icon: "fa fa-tachometer-alt",
       children: [
         {name: "Dashboard 1"},
@@ -53,122 +63,13 @@ export class HeaderComponent implements OnInit {
     },
     {
       isActive: false,
-      name: "Dashboard2",
+      name: "Danh Mục",
       icon: "fa fa-tachometer-alt",
       children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
-      ]
-    },
-    {
-      isActive: false,
-      name: "Dashboard2",
-      icon: "fa fa-tachometer-alt",
-      children: [
-        {name: "Dashboard 1"},
-        {name: "Dashboard 2"},
-        {name: "Dashboard 3"}
+        {name: "Chức danh"},
+        {name: "Phòng ban"},
+        {name: "Trạng thái công việc"},
+        {name: "Nhân viên"}
       ]
     }
   ];

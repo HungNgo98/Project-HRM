@@ -277,13 +277,13 @@ abstract class BaseRepository
             $model->modified_by = $user ? $user->id : null;
         }
 
-        if ($this->exitsProperty('alias') AND !$model->alias) {
-            if (isset($model->name)) {
-                $model->alias = CommonUtils::makeAlias($model->name);
-            } else if ($this->exitsProperty('title')) {
-                $model->alias = CommonUtils::makeAlias($model->title);
-            }
-        }
+//        if ($this->exitsProperty('alias') AND !$model->alias) {
+//            if (isset($model->name)) {
+//                $model->alias = CommonUtils::makeAlias($model->name);
+//            } else if ($this->exitsProperty('title')) {
+//                $model->alias = CommonUtils::makeAlias($model->title);
+//            }
+//        }
 
         if (method_exists($this, 'beforeUpdate')) {
             $this->beforeUpdate($model);
