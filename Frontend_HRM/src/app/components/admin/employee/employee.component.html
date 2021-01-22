@@ -1,0 +1,112 @@
+<h2>Nhân Viên</h2>
+<button type="button" class="btn btn-info" (click)="createOredit()"><i class="fa fa-plus-square"></i>  Thêm nhân sự</button>
+<br><br>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Mã</th>
+    <th>Tên nhân viên</th>
+    <th>Phòng ban</th>
+    <th>Chức danh</th>
+    <th>Trạng thái công việc</th>
+    <th>Thao tác</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of employees">
+    <td>{{employee.id}}</td>
+    <td>{{employee.employee_code}}</td>
+    <td>{{employee.full_name}}</td>
+    <td>{{employee.department_id}}</td>
+    <td>{{employee.position_id}}</td>
+    <td>{{employee.job_status_id}}</td>
+    <td>
+      <button type="button" class="btn btn-primary mr-2" (click)="createOredit(employee)"><i class="fa fa-pencil-square-o"></i></button>
+      <button type="button" class="btn btn-primary" (click)="delete(employee.id)"><i class="fa fa-trash"></i></button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="isShowModal" class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >{{isCreate ? 'Sửa Nhân Sự': 'Thêm Nhân Sự'}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="employeeForm" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label >Mã</label>
+            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Mã" formControlName="user_id">
+          </div>
+          <div class="form-group">
+            <label >Mã nhân viên</label>
+            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Mã nhân viên" formControlName="employee_code">
+          </div>
+          <div class="form-group">
+            <label >Email</label>
+            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Email" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label >Họ tên</label>
+            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Họ tên" formControlName="full_name">
+          </div>
+          <div class="form-group">
+            <label >Giới tính</label>
+<!--            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Giới tính" formControlName="gender">-->
+            <select class="form-control" name="department">
+              <option value="volvo">Nam</option>
+              <option value="saab">Nữ</option>
+              <option value="saab">Khác</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Phòng ban</label>
+<!--            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Phòng ban" formControlName="department_id">-->
+            <select class="form-control" name="department">
+              <option value="volvo">Nhân sự</option>
+              <option value="saab">Hành chính</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Vị trí/ Chức danh</label>
+<!--            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Chức danh" formControlName="position_id">-->
+            <select class="form-control" name="position">
+              <option value="volvo">Trưởng nhóm</option>
+              <option value="saab">Giám đốc</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Trạng thái công việc</label>
+<!--            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Trạng thái công việc" formControlName="job_status_id">-->
+            <select class="form-control" name="working">
+              <option value="volvo">Chính thức</option>
+              <option value="saab">Thử việc</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Tình trạng làm việc</label>
+<!--            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Tình trạng làm việc" formControlName="working_status_id">-->
+            <select class="form-control" name="working">
+              <option value="volvo">Đang làm</option>
+              <option value="saab">Nghỉ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Ngày cheeck out</label>
+            <input type="date" class="form-control"  aria-describedby="emailHelp" placeholder="Ngày check out" formControlName="check_out_date">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submit()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

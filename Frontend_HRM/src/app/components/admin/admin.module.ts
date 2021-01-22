@@ -7,14 +7,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PositionComponent} from './position/position.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-
-
-
-
+import { EmployeeComponent } from './employee/employee.component';
 
 
 @NgModule({
-  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent],
+  declarations: [CourseComponent, PositionComponent, FooterComponent, HeaderComponent, DepartmentComponent, EmployeeComponent],
   exports: [
     HeaderComponent, FooterComponent
   ],
