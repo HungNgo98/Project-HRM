@@ -13,11 +13,19 @@ export class CourseComponent implements OnInit {
   courses: any;
   constructor(
     private courseService: CourseService,
-    private router:Router,
+    private router: Router
     // private toastr:ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.all();
   }
-
+  // tslint:disable-next-line:typedef
+  all(){
+    this.courses.all().subscribe((res: any) => {
+      console.log(1);
+      this.courses = res.data;
+    }, ( error: any) => {console.log(2, error);
+    });
+  }
 }
